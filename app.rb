@@ -12,16 +12,16 @@ class App
     end
 
     def list_of_books
-        puts 'Here is the list of all books'
+        puts 'List of all books'
         @books.each do |book|
             puts "Title: \"#{book.title}\" , Author: #{book.author}"
         end
     end
 
     def list_of_people
-        puts 'Here is the list of all people'
+        puts 'List of all people'
         @people.each do |person|
-            puts people
+            puts person
         end
     end
 
@@ -40,41 +40,36 @@ class App
         @books << book
     end
 
-    def create_rental(date, book_id, person_id)
-        book_instance = @books.find { |book| book.id == book_id }
-        person_instance = @people.find { |people| people.id == person_id }
-
-        if book_instance && person_instance
-            rental = Rental.new(date, book_instance, person_instance)
-            @rentals << rental
-        end
+    def create_rental(date, book, person)
+        rental = Rental.new(date, book, person)
+        @rentals << rental
     end
 
     def books_for_rent
         @books.each_with_index do |book, index|
-            puts "(#{index}) Title: \"#{book.title}\" , Author: #{book.author}"
+            puts "#{index}) Title: \"#{book.title}\" , Author: #{book.author}"
         end
     end
     
     def all_person_who_can_rent
         @people.each_with_index do |person, index|
             if person.is_a?(Student)
-                puts "(#{index}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                puts "#{index}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
             elsif person.is_a?(Teacher)
-                puts "(#{index}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                puts "#{index}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
             else
-                puts "(#{index}) [Unknown Person] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                puts "#{index}) [Unknown Person] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
             end
         end
     end
 
     def selected_book_for_rental(selection_id)
-        return @books[selection].id unless selection_id.negative? || selection_id > @books.length
+        return @books[selection_id].id unless selection_id.negative? || selection_id > @books.length
         puts 'Invalid Selection. Please choose a valid index'
     end
 
     def selected_person_who_will_rent(selection_id)
-        return @people[selection].id unless selection_id.negative? || selection_id > @people.length
+        return @people[selection_id].id unless selection_id.negative? || selection_id > @people.length
         puts 'Invalid Selection. Please choose a valid index'
     end
 
@@ -105,7 +100,7 @@ class App
     end
 
     def create_student_with_input
-        puts 'Creating Student...'
+        puts 'Generating Student...'
         print 'Student Age:'
         age = gets.chomp.to_i
         print 'Student Name:'
@@ -118,7 +113,7 @@ class App
     end
 
     def create_teacher_with_input
-        puts 'Creating Teacher...'
+        puts 'Generating Teacher...'
         print 'Teacher Age:'
         age = gets.chomp.to_i
         print 'Teacher Name:'
@@ -144,14 +139,14 @@ class App
         puts 'Select book from the following list by number: '
         books_for_rent
         book_id = gets.chomp.to_i
-        book_id = selected_book_for_rental(book_id)
+        book = selected_book_for_rental(book_id)
         puts 'Select person from the following list by number (not id): '
         all_person_who_can_rent
         person_id = gets.chomp.to_i
         person = selected_person_who_will_rent(person_id)
         print 'Date: '
         date = gets.chomp.to_s
-        create_rental(date, book_id, person_id)
+        create_rental(date, book, person)
         puts 'Rental created successfully'
     end
 
@@ -166,7 +161,7 @@ class App
         puts '7 - Exit'
     end
 
-    def selected_book_for_rental
+    def search_rented_book_with_id
         print 'ID of the person: '
         id = gets.chomp.to_i
         puts 'List all rentals'
