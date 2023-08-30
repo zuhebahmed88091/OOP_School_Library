@@ -25,6 +25,10 @@ class Person < Nameable
     Rental.new(date, book, self)
   end
 
+  def to_s
+    "[Person] Name: #{name}, ID: #{id}, Age: #{age}"
+  end
+
   private
 
   def of_age?
