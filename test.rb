@@ -16,25 +16,25 @@ capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
 puts capitalized_trimmed_person.correct_name
 
 # Creating unique instances of books
-book1 = Book.new("The Great Gatsby", "F. Scott Fitzgerald")
-book2 = Book.new("The Lord of the Rings", "J.R.R. Tolkien")
+book1 = Book.new('The Great Gatsby', 'F. Scott Fitzgerald')
+book2 = Book.new('The Lord of the Rings', 'J.R.R. Tolkien')
 
 # Creating unique instances of students
-student1 = Student.new(16, "John Doe", parent_permission: false)
-student2 = Student.new(17, "Jane Smith", parent_permission: false)
+student1 = Student.new(16, 'John Doe', parent_permission: false)
+student2 = Student.new(17, 'Jane Smith', parent_permission: false)
 
 # Creating a classroom
-classroom = Classroom.new("A101")
+classroom = Classroom.new('A101')
 classroom.add_student(student1)
 classroom.add_student(student2)
 
 # Creating rentals
-rental1 = Rental.new("2023-08-29", book1, student1)
-rental2 = Rental.new("2023-08-30", book2, student2)
+Rental.new('2023-08-29', book1, student1)
+Rental.new('2023-08-30', book2, student2)
 
 # Outputting classroom information
 puts "Classroom: #{classroom.label}"
-puts "Students in the classroom:"
+puts 'Students in the classroom:'
 classroom.students.each { |student| puts "#{student.name} (ID: #{student.id})" }
 
 # Outputting student information and rentals
@@ -50,9 +50,9 @@ puts "Play hooky: #{student2.play_hooky}"
 
 # Outputting book information and rentals
 puts "\n#{book1.title} by #{book1.author}"
-puts "Rentals for the book:"
+puts 'Rentals for the book:'
 book1.rentals.each { |rental| puts "Rented on #{rental.date} by #{rental.person.name}" }
 
 puts "\n#{book2.title} by #{book2.author}"
-puts "Rentals for the book:"
+puts 'Rentals for the book:'
 book2.rentals.each { |rental| puts "Rented on #{rental.date} by #{rental.person.name}" }
