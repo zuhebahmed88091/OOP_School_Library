@@ -3,6 +3,7 @@ require_relative 'book'
 require_relative 'rental'
 require_relative 'teacher'
 require_relative 'student'
+require 'pry'
 
 class App
   def initialize
@@ -26,7 +27,7 @@ class App
   end
 
   def create_student(age, name, parent_permission)
-    student = Student.new(age, name, parent_permission)
+    student = Student.new(age, parent_permission, name)
     @people << student
   end
 
